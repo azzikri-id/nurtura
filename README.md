@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="public/brand/nurtura-logo-horizontal.svg" alt="Nurtura" width="280">
+</p>
 
-## Getting Started
+<p align="center"><b>Dampingi tumbuh kembang anak, dari posyandu ke rumah.</b></p>
 
-First, run the development server:
+Nurtura adalah platform web yang menghubungkan **kader posyandu**, **orang tua**, dan **bidan/puskesmas**
+untuk mendeteksi risiko stunting lebih awal. Status gizi anak dihitung otomatis dengan standar
+antropometri WHO (Permenkes No. 2 Tahun 2020), dan orang tua mendapat panduan gizi serta menu MPASI.
 
+Karya untuk **Web Development Competition UINIC 8.0** — subtema Kesehatan.
+
+> Status: dalam pengembangan. Dokumentasi lengkap, akun demo, dan panduan penggunaan akan dilengkapi.
+
+## Fitur
+- Pencatatan pengukuran oleh kader dan status gizi otomatis (BB/U, PB/U–TB/U, BB/PB–BB/TB)
+- Grafik pertumbuhan dengan garis referensi WHO
+- Peringatan dini saat pertumbuhan melambat dan deteksi kesalahan input
+- Dasbor bidan/puskesmas per wilayah
+- Asisten gizi berbasis Buku KIA dan rekomendasi menu MPASI lokal (AI, dengan sumber dan validasi keamanan)
+- Hak akses per peran dengan Row Level Security dan perlindungan data anak (UU PDP)
+
+## Teknologi
+Next.js 16 (App Router, TypeScript) · Tailwind CSS 4 · Supabase (PostgreSQL, Auth, RLS) · Zod · Recharts · Vitest · Vercel
+
+## Menjalankan secara lokal
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # isi nilai Supabase & API key
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Pengujian
+```bash
+npm test          # unit test z-score terhadap tabel SD resmi WHO
+npm run test:db   # migration + uji hak akses per peran (Row Level Security) di PostgreSQL
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Struktur
+| Folder | Isi |
+|---|---|
+| `src/lib/gizi` | Perhitungan z-score LMS WHO, kategori Permenkes, data referensi WHO |
+| `supabase/migrations` | Skema database dan aturan akses per peran |
+| `supabase/tests` | Uji migration dan Row Level Security |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Sumber data
+Tabel LMS dari [WHO Child Growth Standards](https://www.who.int/tools/child-growth-standards) (expanded tables, who.int).

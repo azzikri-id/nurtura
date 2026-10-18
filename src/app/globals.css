@@ -1,26 +1,36 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* Warna merek Nurtura (lihat brand/README.md) dan warna status gizi.
+   Semua pasangan teks/latar di bawah memenuhi kontras WCAG AA. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-langit: #2e9be0;        /* utama: tombol, aksen */
+  --color-langit-tua: #1f7fbf;    /* hover tombol, teks tautan di latar putih */
+  --color-langit-muda: #86cdf4;   /* aksen sekunder */
+  --color-tinta: #17507a;         /* judul & teks utama */
+  --color-latar: #eef8fe;         /* latar terang */
+  --color-garis: #d3e6f3;
+  --color-redup: #5b7083;         /* teks sekunder */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-bahaya: #c2410c;        /* gizi buruk / sangat pendek */
+  --color-bahaya-latar: #fff1e8;
+  --color-waspada: #a16207;       /* gizi kurang / pendek */
+  --color-waspada-latar: #fef9e7;
+  --color-normal: #15803d;
+  --color-normal-latar: #ecfdf3;
+  --color-perhatian: #6d28d9;     /* berisiko gizi lebih / tinggi */
+  --color-perhatian-latar: #f5f0ff;
+
+  --color-background: #ffffff;
+  --color-foreground: var(--color-tinta);
+  --font-sans: var(--font-jakarta);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-langit);
+  outline-offset: 2px;
 }
