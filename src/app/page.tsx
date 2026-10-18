@@ -1,53 +1,40 @@
-import Image from "next/image";
-
-const peran = [
-  {
-    nama: "Kader posyandu",
-    isi: "Catat berat dan tinggi anak dalam hitungan detik, lalu langsung lihat status gizinya.",
-  },
-  {
-    nama: "Orang tua",
-    isi: "Pantau grafik tumbuh kembang anak dan dapatkan saran gizi serta menu MPASI yang terjangkau.",
-  },
-  {
-    nama: "Bidan & puskesmas",
-    isi: "Lihat anak berisiko di seluruh posyandu wilayah Anda dan tindak lanjuti lebih awal.",
-  },
-];
+import { Header } from "@/components/landing/Header";
+import { Hero } from "@/components/landing/Hero";
+import { Masalah } from "@/components/landing/Masalah";
+import { CaraKerja } from "@/components/landing/CaraKerja";
+import { CobaHitung } from "@/components/landing/CobaHitung";
+import { UntukSiapa } from "@/components/landing/UntukSiapa";
+import { Privasi } from "@/components/landing/Privasi";
+import { Footer } from "@/components/landing/Footer";
+import { CONTOH_PENGUKURAN } from "@/components/landing/contoh";
+import { hitungStatusGizi } from "@/lib/gizi";
 
 export default function Home() {
   return (
-    <main className="flex flex-1 flex-col bg-latar">
-      <section className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center gap-10 px-6 py-16">
-        <Image
-          src="/brand/nurtura-logo-horizontal.svg"
-          alt="Nurtura"
-          width={240}
-          height={60}
-          priority
-        />
-        <div className="max-w-2xl space-y-4">
-          <h1 className="text-4xl font-extrabold leading-tight text-tinta sm:text-5xl">
-            Dampingi tumbuh kembang anak, dari posyandu ke rumah.
-          </h1>
-          <p className="text-lg text-redup">
-            Nurtura menghubungkan kader posyandu, orang tua, dan puskesmas dalam satu ekosistem
-            untuk mendeteksi risiko stunting lebih awal. Status gizi dihitung otomatis dengan
-            standar WHO.
-          </p>
-        </div>
-        <ul className="grid gap-4 sm:grid-cols-3">
-          {peran.map((p) => (
-            <li key={p.nama} className="rounded-2xl border border-garis bg-white p-5">
-              <h2 className="font-bold text-tinta">{p.nama}</h2>
-              <p className="mt-2 text-sm text-redup">{p.isi}</p>
-            </li>
-          ))}
-        </ul>
-        <p className="text-sm text-redup">
-          Sedang dalam pengembangan untuk Web Development Competition UINIC 8.0.
-        </p>
-      </section>
-    </main>
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <Masalah />
+        <CaraKerja />
+        <section id="coba" className="scroll-mt-16 bg-latar">
+          <div className="mx-auto max-w-6xl px-6 py-20 lg:py-28">
+            <div className="max-w-2xl">
+              <h2 className="text-3xl font-extrabold tracking-tight text-tinta sm:text-4xl">Coba hitung status gizi anak</h2>
+              <p className="mt-4 text-redup">
+                Perhitungan ini sama dengan yang dipakai kader di Nurtura: z-score dari tabel resmi WHO,
+                dengan koreksi cara ukur dan kategori Permenkes No. 2 Tahun 2020.
+              </p>
+            </div>
+            <div className="mt-10">
+              <CobaHitung hasilAwal={hitungStatusGizi(CONTOH_PENGUKURAN)} />
+            </div>
+          </div>
+        </section>
+        <UntukSiapa />
+        <Privasi />
+      </main>
+      <Footer />
+    </>
   );
 }

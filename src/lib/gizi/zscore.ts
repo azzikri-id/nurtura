@@ -93,6 +93,18 @@ function lmsPanjang(tabel: Tabel, cm: number, jk: JenisKelamin): Lms | null {
   return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f];
 }
 
+/**
+ * Garis referensi BB/U (mis. −2 SD, median, +2 SD) per bulan, untuk menggambar grafik pertumbuhan.
+ */
+export function garisBBU(jk: JenisKelamin, z: number, bulanMaks: number): { bulan: number; kg: number }[] {
+  const titik: { bulan: number; kg: number }[] = [];
+  for (let bulan = 0; bulan <= bulanMaks; bulan++) {
+    const lms = lmsUmur(WFA, Math.round(bulan * HARI_PER_BULAN), jk);
+    if (lms) titik.push({ bulan, kg: nilaiPadaZ(z, lms) });
+  }
+  return titik;
+}
+
 /** Berat badan menurut umur. */
 export function zBBU(beratKg: number, hari: number, jk: JenisKelamin): number | null {
   const lms = lmsUmur(WFA, hari, jk);
