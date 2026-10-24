@@ -11,6 +11,8 @@ const url = () => process.env.NEXT_PUBLIC_SUPABASE_URL!;
 export async function createClient() {
   const cookieStore = await cookies();
   return createServerClient(url(), process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
+    // Sesi hanya dipakai di server, jadi cookie bisa HttpOnly (aman dari pencurian lewat XSS).
+    cookieOptions: { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/" },
     cookies: {
       getAll: () => cookieStore.getAll(),
       setAll: (daftar) => {

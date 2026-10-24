@@ -84,7 +84,7 @@ export function FormDaftar({ posyandu, hariIni }: { posyandu: { id: string; nama
           <input type="checkbox" name="setuju" value="ya" defaultChecked={n.setuju === "ya"} className="mt-0.5 accent-langit" {...a("setuju")} />
           <span>
             Orang tua sudah dijelaskan dan <b>menyetujui</b> data anak dicatat di Nurtura untuk pemantauan tumbuh kembang.
-            Data hanya dapat dilihat kader posyandu, bidan wilayah, dan orang tua sendiri, serta dapat diminta untuk dihapus.
+            Data hanya dapat dilihat kader posyandu, bidan wilayah, dan orang tua sendiri, serta dapat diminta untuk dihapus (<a href="/privasi" target="_blank" className="font-semibold text-langit-tua underline">kebijakan privasi</a>).
           </span>
         </label>
         {err("setuju")}

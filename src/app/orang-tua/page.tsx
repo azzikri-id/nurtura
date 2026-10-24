@@ -10,6 +10,7 @@ import { formatAngka, formatTanggal, formatUmur, hariIniWIB } from "@/lib/format
 import { FormKlaim } from "./FormKlaim";
 import { AsistenGizi } from "@/components/orang-tua/AsistenGizi";
 import { MenuMpasi } from "@/components/orang-tua/MenuMpasi";
+import { DataPrivasi } from "@/components/orang-tua/DataPrivasi";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Anak saya" };
@@ -113,6 +114,7 @@ function KartuAnak({ anak, bahan }: { anak: DetailAnak; bahan: { nama: string; p
       <div className="mt-5 space-y-5">
         <AsistenGizi anakId={anak.id} namaPanggilan={anak.nama.split(" ")[0]} />
         <MenuMpasi anakId={anak.id} bahan={bahan} />
+        <DataPrivasi anakId={anak.id} namaAnak={anak.nama} />
       </div>
     </article>
   );

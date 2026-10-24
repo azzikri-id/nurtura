@@ -7,6 +7,7 @@ import { daftarAnak, type AnakRingkas } from "@/lib/data/kader";
 import { umurHari } from "@/lib/gizi";
 import { formatTanggal, formatUmur, formatZ, hariIniWIB } from "@/lib/format";
 import { FormTindak } from "./FormTindak";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Dasbor puskesmas" };
 
@@ -43,6 +44,27 @@ async function Dasbor() {
   }));
   const total = rekap.reduce((s, r) => ({ total: s.total + r.total, pendek: s.pendek + r.pendek, kurus: s.kurus + r.kurus, peringatan: s.peringatan + r.peringatan }),
     { total: 0, pendek: 0, kurus: 0, peringatan: 0 });
+
+  // Tren 6 bulan terakhir dari semua pengukuran di wilayah (RLS membatasi ke posyandu binaan).
+  const supabase = await createClient();
+  const awal = new Date(Date.parse(`${hariIni.slice(0, 7)}-01`) - 150 * 86_400_000).toISOString().slice(0, 7);
+  const { data: semuaUkur } = await supabase
+    .from("pengukuran")
+    .select("tgl_ukur, anak_id, status_gizi(z_tbu, z_bbtb)")
+    .gte("tgl_ukur", `${awal}-01`);
+  const perBulan = new Map<string, { anak: Set<string>; pendek: number; kurus: number; total: number }>();
+  for (const u of semuaUkur ?? []) {
+    const bulan = u.tgl_ukur.slice(0, 7);
+    const s = Array.isArray(u.status_gizi) ? u.status_gizi[0] : u.status_gizi;
+    const b = perBulan.get(bulan) ?? { anak: new Set<string>(), pendek: 0, kurus: 0, total: 0 };
+    b.anak.add(u.anak_id);
+    b.total++;
+    if (s?.z_tbu != null && Number(s.z_tbu) < -2) b.pendek++;
+    if (s?.z_bbtb != null && Number(s.z_bbtb) < -2) b.kurus++;
+    perBulan.set(bulan, b);
+  }
+  const tren = [...perBulan.entries()].sort(([a], [b]) => a.localeCompare(b));
+  const NAMA_BULAN = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
 
   const antrean = anak
     .flatMap((a) => a.peringatanAktif.map((p) => ({ anak: a, p })))
@@ -85,6 +107,33 @@ async function Dasbor() {
               <td className="px-5 py-3 text-right font-bold text-tinta">{total.peringatan}</td>
             </tr>
           </tfoot>
+        </table>
+      </div>
+
+      <h2 className="mt-10 text-lg font-bold text-tinta">Tren 6 bulan terakhir</h2>
+      <p className="text-sm text-redup">Persentase dari anak yang ditimbang pada bulan tersebut.</p>
+      <div className="mt-3 overflow-x-auto rounded-xl border border-garis bg-white">
+        <table className="w-full text-sm tabular-nums">
+          <thead className="text-left text-xs text-redup">
+            <tr className="border-b border-garis">
+              <th scope="col" className="px-5 py-3 font-medium">Bulan</th>
+              <th scope="col" className="px-3 py-3 text-right font-medium">Anak ditimbang</th>
+              <th scope="col" className="px-3 py-3 text-right font-medium">Pendek / sangat pendek</th>
+              <th scope="col" className="px-5 py-3 text-right font-medium">Gizi kurang / buruk</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-garis">
+            {tren.map(([bulan, b]) => (
+              <tr key={bulan}>
+                <th scope="row" className="px-5 py-2.5 text-left font-semibold text-tinta">
+                  {NAMA_BULAN[Number(bulan.slice(5, 7)) - 1]} {bulan.slice(0, 4)}
+                </th>
+                <td className="px-3 py-2.5 text-right text-tinta">{b.anak.size}</td>
+                <td className="px-3 py-2.5 text-right"><span className="text-tinta">{b.pendek}</span> <span className="text-redup">({persen(b.pendek, b.total)})</span></td>
+                <td className="px-5 py-2.5 text-right"><span className="text-tinta">{b.kurus}</span> <span className="text-redup">({persen(b.kurus, b.total)})</span></td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
 

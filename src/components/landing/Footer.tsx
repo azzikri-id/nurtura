@@ -13,6 +13,9 @@ export function Footer() {
         </div>
         <ul className="flex flex-wrap gap-x-6 gap-y-2">
           <li>
+            <a href="/privasi" className="hover:text-tinta">Kebijakan privasi</a>
+          </li>
+          <li>
             <a href="https://github.com/azzikri-id/nurtura" className="hover:text-tinta" target="_blank" rel="noreferrer">
               Kode sumber
             </a>
