@@ -30,7 +30,7 @@ export function GrafikBBU({ jk, data, bulanMaks = 18 }: { jk: JenisKelamin; data
           <text x={KIRI - 6} y={y(kg) + 3} textAnchor="end" fontSize="10" fill="var(--color-redup)">{kg}</text>
         </g>
       ))}
-      {[0, 6, 12, 18].filter((b) => b <= bulanMaks).map((b) => (
+      {Array.from({ length: Math.floor(bulanMaks / (bulanMaks <= 24 ? 6 : 12)) + 1 }, (_, i) => i * (bulanMaks <= 24 ? 6 : 12)).map((b) => (
         <text key={b} x={x(b)} y={H - 10} fontSize="10" fill="var(--color-redup)"
           textAnchor={b === 0 ? "start" : b === bulanMaks ? "end" : "middle"}>{b} bln</text>
       ))}

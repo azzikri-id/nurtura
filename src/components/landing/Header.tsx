@@ -23,8 +23,8 @@ export function Header() {
             ))}
           </ul>
         </nav>
-        <a href="#coba" className="rounded-lg border border-tinta/15 px-4 py-2 text-sm font-semibold text-tinta transition-colors hover:border-langit hover:text-langit-tua">
-          Coba sekarang
+        <a href="/masuk" className="rounded-lg border border-tinta/15 px-4 py-2 text-sm font-semibold text-tinta transition-colors hover:border-langit hover:text-langit-tua">
+          Masuk
         </a>
       </div>
     </header>

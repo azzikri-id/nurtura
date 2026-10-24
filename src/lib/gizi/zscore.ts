@@ -105,6 +105,12 @@ export function garisBBU(jk: JenisKelamin, z: number, bulanMaks: number): { bula
   return titik;
 }
 
+/** Berat (BB/U) atau panjang/tinggi (TB/U) pada z tertentu untuk umur tertentu; null di luar cakupan. */
+export function nilaiUntukZ(indikator: "bbu" | "tbu", z: number, hari: number, jk: JenisKelamin): number | null {
+  const lms = lmsUmur(indikator === "bbu" ? WFA : LHFA, hari, jk);
+  return lms ? nilaiPadaZ(z, lms) : null;
+}
+
 /** Berat badan menurut umur. */
 export function zBBU(beratKg: number, hari: number, jk: JenisKelamin): number | null {
   const lms = lmsUmur(WFA, hari, jk);

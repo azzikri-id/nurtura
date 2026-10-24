@@ -18,8 +18,8 @@ export function Hero() {
               className="rounded-lg bg-langit px-5 py-3 font-semibold text-white transition-colors hover:bg-langit-tua">
               Coba hitung status gizi
             </a>
-            <a href="#cara-kerja" className="font-semibold text-tinta underline decoration-langit/40 underline-offset-4 hover:decoration-langit">
-              Lihat cara kerjanya
+            <a href="/masuk" className="font-semibold text-tinta underline decoration-langit/40 underline-offset-4 hover:decoration-langit">
+              Coba akun demo kader, bidan, atau orang tua
             </a>
           </div>
           <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-garis pt-6 text-sm text-redup">

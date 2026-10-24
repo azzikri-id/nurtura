@@ -12,6 +12,17 @@ Karya untuk **Web Development Competition UINIC 8.0** — subtema Kesehatan.
 
 **Demo:** https://nurtura-app.vercel.app
 
+### Akun demo (data fiktif)
+Buka https://nurtura-app.vercel.app/masuk lalu pilih peran, atau masuk manual dengan kata sandi `NurturaDemo2026`:
+
+| Peran | Email | Yang bisa dicoba |
+|---|---|---|
+| Kader posyandu | kader.mawar@example.com | Daftar anak, catat penimbangan, cek data tidak wajar, peringatan otomatis |
+| Bidan | bidan@example.com | Rekap per posyandu, antrean peringatan, catatan tindak lanjut |
+| Orang tua | orangtua@example.com | Status gizi anak dengan bahasa awam dan grafik pertumbuhan |
+
+Data demo bisa dikembalikan ke kondisi awal dengan `npm run seed`.
+
 > Status: dalam pengembangan. Dokumentasi lengkap, akun demo, dan panduan penggunaan akan dilengkapi.
 
 ## Fitur

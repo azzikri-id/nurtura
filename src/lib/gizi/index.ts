@@ -59,3 +59,4 @@ export function hitungStatusGizi(input: InputPengukuran): StatusGizi {
     bbtb: hasil(zBBTB(input.beratKg, cm, hari, input.jenisKelamin), kategoriBBTB),
   };
 }
+export * from "./peringatan";
