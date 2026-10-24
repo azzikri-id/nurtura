@@ -15,7 +15,7 @@ export function Hero() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <a href="#coba"
-              className="rounded-lg bg-langit px-5 py-3 font-semibold text-white transition-colors hover:bg-langit-tua">
+              className="rounded-lg bg-langit-tua px-5 py-3 font-semibold text-white transition-colors hover:bg-tinta">
               Coba hitung status gizi
             </a>
             <a href="/masuk" className="font-semibold text-tinta underline decoration-langit/40 underline-offset-4 hover:decoration-langit">

@@ -41,7 +41,7 @@ async function DaftarAnakKader({ searchParams }: Pick<PageProps<"/kader">, "sear
           <h1 className="text-2xl font-extrabold tracking-tight text-tinta">Anak di posyandu</h1>
           <p className="mt-1 text-sm text-redup">Ketuk nama anak untuk melihat grafik dan mencatat penimbangan.</p>
         </div>
-        <Link href="/kader/anak/baru" className="rounded-lg bg-langit px-4 py-2.5 text-sm font-semibold text-white hover:bg-langit-tua">
+        <Link href="/kader/anak/baru" className="rounded-lg bg-langit-tua px-4 py-2.5 text-sm font-semibold text-white hover:bg-tinta">
           Daftarkan anak
         </Link>
       </div>

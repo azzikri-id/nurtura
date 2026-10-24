@@ -14,7 +14,7 @@ export function FormKlaim() {
         {status.galat && <p role="alert" className="mt-1 max-w-sm text-sm text-bahaya">{status.galat}</p>}
       </div>
       <button type="submit" disabled={menunggu}
-        className="rounded-lg bg-langit px-4 py-2.5 font-semibold text-white hover:bg-langit-tua disabled:opacity-60">
+        className="rounded-lg bg-langit-tua px-4 py-2.5 font-semibold text-white hover:bg-tinta disabled:opacity-60">
         {menunggu ? "Memeriksa…" : "Tautkan"}
       </button>
     </form>

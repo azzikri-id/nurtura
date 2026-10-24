@@ -76,7 +76,7 @@ export function FormPengukuran({ anakId, hariIni, caraBawaan }: { anakId: string
 
       {pesan("umum")}
       <button type="submit" disabled={menunggu}
-        className="w-full rounded-lg bg-langit px-5 py-3 font-semibold text-white transition-colors hover:bg-langit-tua disabled:opacity-60 sm:w-auto">
+        className="w-full rounded-lg bg-langit-tua px-5 py-3 font-semibold text-white transition-colors hover:bg-tinta disabled:opacity-60 sm:w-auto">
         {menunggu ? "Menyimpan…" : "Simpan pengukuran"}
       </button>
     </form>

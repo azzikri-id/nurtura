@@ -134,7 +134,7 @@ tetap melanggar disembunyikan, dan alasannya ditampilkan kepada orang tua.
 
 | Lapisan | Penerapan |
 |---|---|
-| Autentikasi | Supabase Auth. Cookie sesi bersifat HttpOnly, SameSite=Lax, dan Secure di produksi. `proxy.ts` melindungi `/kader`, `/bidan`, `/orang-tua`, dan `/admin`. |
+| Autentikasi | Supabase Auth. Cookie sesi bersifat HttpOnly, SameSite=Lax, dan Secure di produksi. `proxy.ts` melindungi `/kader`, `/bidan`, `/orang-tua`, dan `/admin`. Login dibatasi 5 kali gagal per 15 menit per email (dicatat di `audit_log` sebagai hash, bukan email asli). Tombol akun demo dikecualikan agar tidak bisa dikunci orang lain. |
 | Otorisasi | `wajibPeran()` di setiap halaman dan aksi, ditambah Row Level Security di setiap tabel |
 | Validasi | Zod di setiap API dan Server Action, dengan batas angka yang masuk akal secara medis |
 | Data sensitif | NIK dienkripsi AES-256-GCM (kunci hanya di server) dan ditampilkan tersamar. Kunci service role tidak pernah dikirim ke browser. |
@@ -149,3 +149,5 @@ tetap melanggar disembunyikan, dan alasannya ditampilkan kepada orang tua.
 | `npm test` | 54 unit test (Vitest): z-score terhadap 616 nilai tabel SD WHO, kategori, peringatan, validator menu, penyamaran privasi, enkripsi |
 | `npm run test:db` | 29 uji migration dan RLS di PostgreSQL (PGlite): tiap peran hanya bisa membaca dan menulis datanya sendiri |
 | `npm run lint` | ESLint (aturan Next.js + React) |
+
+Audit Lighthouse (mode mobile, 24 Okt 2026) untuk 8 halaman utama: aksesibilitas 100, best practices 100, SEO 100, performa 97–100.

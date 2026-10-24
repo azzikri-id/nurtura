@@ -67,7 +67,7 @@ export function MenuMpasi({ anakId, bahan }: { anakId: string; bahan: { nama: st
               className="mt-1.5 w-40 rounded-lg border border-garis px-3 py-2 text-tinta outline-none focus:border-langit focus:ring-2 focus:ring-langit/20" />
           </div>
           <button type="submit" disabled={memuat || !pilihan.length}
-            className="rounded-lg bg-langit px-4 py-2.5 text-sm font-semibold text-white hover:bg-langit-tua disabled:opacity-60">
+            className="rounded-lg bg-langit-tua px-4 py-2.5 text-sm font-semibold text-white hover:bg-tinta disabled:opacity-60">
             {memuat ? "Menyusun menu…" : "Susun menu"}
           </button>
         </div>

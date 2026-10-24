@@ -92,7 +92,7 @@ export function FormDaftar({ posyandu, hariIni }: { posyandu: { id: string; nama
 
       {err("umum")}
       <button type="submit" disabled={menunggu}
-        className="rounded-lg bg-langit px-5 py-3 font-semibold text-white transition-colors hover:bg-langit-tua disabled:opacity-60">
+        className="rounded-lg bg-langit-tua px-5 py-3 font-semibold text-white transition-colors hover:bg-tinta disabled:opacity-60">
         {menunggu ? "Menyimpan…" : "Daftarkan anak"}
       </button>
     </form>

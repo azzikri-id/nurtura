@@ -36,7 +36,7 @@ export function CaraKerja() {
           {LANGKAH.map((l, i) => (
             <li key={l.judul} className="relative">
               <span className={`relative grid size-8 place-items-center rounded-full text-sm font-bold ring-4 ring-white ${
-                i === 1 ? "bg-langit text-white" : "bg-latar text-tinta"}`}>
+                i === 1 ? "bg-langit-tua text-white" : "bg-latar text-tinta"}`}>
                 {i + 1}
               </span>
               <p className="mt-5 text-xs font-semibold tracking-wide text-langit-tua">{l.siapa}</p>

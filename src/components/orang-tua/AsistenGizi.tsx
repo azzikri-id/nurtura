@@ -54,7 +54,7 @@ export function AsistenGizi({ anakId, namaPanggilan }: { anakId: string; namaPan
             ))}
           </p>
           <button type="submit" disabled={memuat || !teks.trim()}
-            className="rounded-lg bg-langit px-4 py-2 text-sm font-semibold text-white hover:bg-langit-tua disabled:opacity-60">
+            className="rounded-lg bg-langit-tua px-4 py-2 text-sm font-semibold text-white hover:bg-tinta disabled:opacity-60">
             {memuat ? "Mencari jawaban…" : "Tanyakan"}
           </button>
         </div>

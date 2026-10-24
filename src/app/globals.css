@@ -3,8 +3,8 @@
 /* Warna merek Nurtura (lihat brand/README.md) dan warna status gizi.
    Semua pasangan teks/latar di bawah memenuhi kontras WCAG AA. */
 @theme inline {
-  --color-langit: #2e9be0;        /* utama: tombol, aksen */
-  --color-langit-tua: #1f7fbf;    /* hover tombol, teks tautan di latar putih */
+  --color-langit: #2e9be0;        /* warna merek: logo, aksen, garis, fokus (bukan latar teks) */
+  --color-langit-tua: #1a70a8;    /* tombol & teks tautan: kontras 5,3:1 di putih, 5,0:1 di latar */
   --color-langit-muda: #86cdf4;   /* aksen sekunder */
   --color-tinta: #17507a;         /* judul & teks utama */
   --color-latar: #eef8fe;         /* latar terang */

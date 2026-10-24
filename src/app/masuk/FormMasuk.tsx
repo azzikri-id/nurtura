@@ -22,7 +22,7 @@ export function FormMasuk({ lanjut }: { lanjut?: string }) {
       </div>
       {status.galat && <p role="alert" className="text-sm text-bahaya">{status.galat}</p>}
       <button type="submit" disabled={menunggu}
-        className="w-full rounded-lg bg-langit px-5 py-3 font-semibold text-white transition-colors hover:bg-langit-tua disabled:opacity-60">
+        className="w-full rounded-lg bg-langit-tua px-5 py-3 font-semibold text-white transition-colors hover:bg-tinta disabled:opacity-60">
         {menunggu ? "Memeriksa…" : "Masuk"}
       </button>
     </form>

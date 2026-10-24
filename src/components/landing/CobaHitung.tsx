@@ -128,7 +128,7 @@ export function CobaHitung({ hasilAwal }: { hasilAwal: StatusGizi }) {
 
         {pesan("umum")}
         <button type="submit" disabled={memuat}
-          className="mt-6 w-full rounded-lg bg-langit px-5 py-3 font-semibold text-white transition-colors hover:bg-langit-tua disabled:opacity-60">
+          className="mt-6 w-full rounded-lg bg-langit-tua px-5 py-3 font-semibold text-white transition-colors hover:bg-tinta disabled:opacity-60">
           {memuat ? "Menghitung…" : "Hitung status gizi"}
         </button>
         <p className="mt-3 text-xs text-redup">Data yang Anda masukkan tidak disimpan.</p>

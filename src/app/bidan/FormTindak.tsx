@@ -17,7 +17,7 @@ export function FormTindak({ id, catatanAwal }: { id: string; catatanAwal: strin
           Sedang ditindaklanjuti
         </button>
         <button name="status" value="selesai" disabled={menunggu}
-          className="rounded-lg bg-langit px-3 py-1.5 text-sm font-semibold text-white hover:bg-langit-tua disabled:opacity-60">
+          className="rounded-lg bg-langit-tua px-3 py-1.5 text-sm font-semibold text-white hover:bg-tinta disabled:opacity-60">
           Tandai selesai
         </button>
         {status.galat && <p role="alert" className="text-sm text-bahaya">{status.galat}</p>}
