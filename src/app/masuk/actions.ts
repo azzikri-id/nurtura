@@ -20,6 +20,9 @@ const tujuanAman = (lanjut: FormDataEntryValue | null) =>
 async function masukDengan(email: string, password: string, lanjut: string | null): Promise<StatusMasuk> {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error?.status === 429) {
+    return { galat: "Terlalu banyak percobaan masuk. Tunggu beberapa menit lalu coba lagi.", email };
+  }
   if (error || !data.user) {
     // Pesan sama untuk email tidak terdaftar dan sandi salah, agar tidak membocorkan akun yang ada.
     return { galat: "Email atau kata sandi salah.", email };

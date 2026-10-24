@@ -16,6 +16,8 @@ import {
 } from "../src/lib/gizi";
 import { AKUN_DEMO, PASSWORD_DEMO } from "../src/lib/demo";
 import { CONTOH_BERAT_BULANAN } from "../src/components/landing/contoh";
+import { PENGETAHUAN } from "./data/pengetahuan";
+import { BAHAN } from "./data/bahan";
 
 process.loadEnvFile(".env.local");
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
@@ -217,7 +219,18 @@ async function main() {
     }
   }
 
-  console.log(`Selesai: ${semua.length} anak, ${jumlahUkur} pengukuran, ${jumlahPeringatan} peringatan, ${AKUN.length} akun demo.`);
+  console.log("Mengisi basis pengetahuan dan bahan pangan…");
+  cek(await db.from("pengetahuan").delete().not("id", "is", null), "hapus pengetahuan");
+  cek(await db.from("pengetahuan").insert(PENGETAHUAN.map((p) => ({
+    topik: p.topik, umur_min_bulan: p.umurMin, umur_max_bulan: p.umurMax, isi: p.isi, sumber: p.sumber, halaman: null,
+  }))), "pengetahuan");
+  cek(await db.from("bahan_pangan").delete().not("id", "is", null), "hapus bahan");
+  cek(await db.from("bahan_pangan").insert(BAHAN.map((b) => ({
+    nama: b.nama, protein_hewani: b.proteinHewani, harga_perkiraan: b.harga,
+  }))), "bahan pangan");
+
+  console.log(`Selesai: ${semua.length} anak, ${jumlahUkur} pengukuran, ${jumlahPeringatan} peringatan, ` +
+    `${AKUN.length} akun demo, ${PENGETAHUAN.length} topik pengetahuan, ${BAHAN.length} bahan pangan.`);
 }
 
 main().catch((e) => {

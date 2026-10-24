@@ -8,6 +8,9 @@ import { daftarAnak, detailAnak, type DetailAnak } from "@/lib/data/kader";
 import { kategoriBBTB, kategoriBBU, kategoriTBU, umurHari } from "@/lib/gizi";
 import { formatAngka, formatTanggal, formatUmur, hariIniWIB } from "@/lib/format";
 import { FormKlaim } from "./FormKlaim";
+import { AsistenGizi } from "@/components/orang-tua/AsistenGizi";
+import { MenuMpasi } from "@/components/orang-tua/MenuMpasi";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Anak saya" };
 
@@ -31,6 +34,9 @@ async function Isi() {
   await wajibPeran("orang_tua");
   const daftar = await daftarAnak();
   const anak = (await Promise.all(daftar.map((a) => detailAnak(a.id)))).filter((a): a is DetailAnak => !!a);
+  const supabase = await createClient();
+  const { data: bahanPangan } = await supabase.from("bahan_pangan").select("nama, protein_hewani").order("nama");
+  const bahan = (bahanPangan ?? []).map((b) => ({ nama: b.nama, proteinHewani: b.protein_hewani }));
 
   if (!anak.length) {
     return (
@@ -46,12 +52,12 @@ async function Isi() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-10 px-6 py-8">
-      {anak.map((a) => <KartuAnak key={a.id} anak={a} />)}
+      {anak.map((a) => <KartuAnak key={a.id} anak={a} bahan={bahan} />)}
     </div>
   );
 }
 
-function KartuAnak({ anak }: { anak: DetailAnak }) {
+function KartuAnak({ anak, bahan }: { anak: DetailAnak; bahan: { nama: string; proteinHewani: boolean }[] }) {
   const hariIni = hariIniWIB();
   const umur = umurHari(anak.tglLahir, hariIni);
   const t = anak.terakhir;
@@ -104,12 +110,10 @@ function KartuAnak({ anak }: { anak: DetailAnak }) {
         </section>
       )}
 
-      <section className="mt-5 rounded-xl border border-dashed border-langit/50 bg-white px-5 py-4">
-        <h2 className="font-bold text-tinta">Asisten gizi & menu MPASI</h2>
-        <p className="mt-1 text-sm text-redup">
-          Tanyakan soal makan anak dengan bahasa sehari-hari dan dapatkan menu dari bahan yang ada di rumah. Fitur ini sedang disiapkan.
-        </p>
-      </section>
+      <div className="mt-5 space-y-5">
+        <AsistenGizi anakId={anak.id} namaPanggilan={anak.nama.split(" ")[0]} />
+        <MenuMpasi anakId={anak.id} bahan={bahan} />
+      </div>
     </article>
   );
 }
