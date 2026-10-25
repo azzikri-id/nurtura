@@ -2,7 +2,7 @@
 
 Semua endpoint berada di bawah `/api/v1` dan menerima atau mengembalikan JSON (UTF-8).
 
-- **Basis URL produksi:** `https://nurtura-app.vercel.app/api/v1`
+- **Basis URL produksi:** `https://nurtura.sbs/api/v1`
 - **Autentikasi:** cookie sesi Supabase (HttpOnly) yang dibuat saat masuk lewat `/masuk`. Endpoint bertanda 🔒 menolak
   permintaan tanpa sesi dengan `401`.
 - **Hak akses data:** dijaga di database dengan Row Level Security. Bila pengguna tidak berhak atas anak yang
@@ -54,7 +54,7 @@ Endpoint ini **publik** dan **tidak menyimpan data**. Kalkulator di halaman depa
 **Contoh**
 
 ```bash
-curl -X POST https://nurtura-app.vercel.app/api/v1/status-gizi \
+curl -X POST https://nurtura.sbs/api/v1/status-gizi \
   -H "Content-Type: application/json" \
   -d '{"tglLahir":"2025-08-18","tglUkur":"2026-10-18","jenisKelamin":"L","beratKg":9.1,"tinggiCm":73.5,"caraUkur":"terlentang"}'
 ```

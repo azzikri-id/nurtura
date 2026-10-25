@@ -10,10 +10,10 @@ antropometri WHO (Permenkes No. 2 Tahun 2020), dan orang tua mendapat panduan gi
 
 Karya untuk **Web Development Competition UINIC 8.0** — subtema Kesehatan.
 
-**Demo:** https://nurtura-app.vercel.app
+**Demo:** https://nurtura.sbs (cadangan: https://nurtura-app.vercel.app)
 
 ### Akun demo (data fiktif)
-Buka https://nurtura-app.vercel.app/masuk lalu pilih peran, atau masuk manual dengan kata sandi `NurturaDemo2026`:
+Buka https://nurtura.sbs/masuk lalu pilih peran, atau masuk manual dengan kata sandi `NurturaDemo2026`:
 
 | Peran | Email | Yang bisa dicoba |
 |---|---|---|

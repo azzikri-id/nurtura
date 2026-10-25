@@ -3,7 +3,7 @@
 Nurtura punya tiga peran utama: **kader posyandu**, **bidan/puskesmas**, dan **orang tua**. Setiap peran hanya
 melihat data yang menjadi haknya. Panduan ini memakai akun demo dengan data fiktif.
 
-- Alamat: https://nurtura-app.vercel.app
+- Alamat: https://nurtura.sbs
 - Kata sandi semua akun demo: `NurturaDemo2026`
 
 | Peran | Email demo |
@@ -119,11 +119,11 @@ Beranda bidan berisi:
 - **Pantauan wilayah:** rekap tiap posyandu binaan, yaitu jumlah anak, jumlah dan persentase anak pendek/sangat pendek,
   gizi kurang/buruk, serta jumlah anak dengan peringatan.
 - **Tren 6 bulan terakhir:** persentase masalah gizi tiap bulan dari anak yang ditimbang pada bulan itu.
-- **Antrean peringatan:** daftar anak yang perlu ditindaklanjuti, diurutkan dari yang paling mendesak.
+- **Peringatan yang perlu ditindaklanjuti:** daftar anak yang perlu ditindaklanjuti, diurutkan dari yang paling mendesak.
 
 Cara menindaklanjuti peringatan:
 
-1. Buka peringatan di antrean.
+1. Temukan anak di bagian **Peringatan yang perlu ditindaklanjuti**.
 2. Tulis catatan tindak lanjut, misalnya "Kunjungan rumah 20 Okt, edukasi PMT, rujuk ke puskesmas".
 3. Tekan **Sedang ditindaklanjuti** bila masih dipantau, atau **Tandai selesai** bila kasusnya sudah tertangani.
    Catatan ini ikut tersimpan di riwayat peringatan anak.
@@ -146,7 +146,7 @@ Akun orang tua baru belum terhubung ke anak mana pun. Masukkan **kode undangan**
 Setiap indikator ditampilkan dalam bahasa sehari-hari beserta artinya, misalnya "Tinggi badan anak lebih pendek dari
 anak seusianya". Di bawahnya ada grafik pertumbuhan dan riwayat penimbangan.
 
-### Asisten gizi (AI)
+### Asisten gizi (AI) — bagian "Tanya soal makan [nama anak]"
 
 ![Asisten gizi](img/09-orangtua-asisten.jpg)
 
@@ -160,7 +160,7 @@ anak seusianya". Di bawahnya ada grafik pertumbuhan dan riwayat penimbangan.
 Nama, NIK, nomor HP, dan email disamarkan sebelum pertanyaan dikirim ke AI. Batas pemakaian adalah 30 pertanyaan per
 jam per akun.
 
-### Menu MPASI (AI)
+### Menu MPASI (AI) — bagian "Menu sehari dari bahan di rumah"
 
 ![Rekomendasi menu MPASI](img/10-orangtua-menu.jpg)
 
@@ -188,7 +188,7 @@ Di bagian **Data & privasi** orang tua bisa:
   dinonaktifkan pada akun demo.
 
 Kedua hak ini mengikuti UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi. Rincian kebijakannya ada di halaman
-[/privasi](https://nurtura-app.vercel.app/privasi).
+[/privasi](https://nurtura.sbs/privasi).
 
 ---
 
