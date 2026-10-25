@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Memuat } from "@/components/app/Memuat";
 import { SkalaZ, warnaTeks, type Indikator } from "@/components/SkalaZ";
-import { GrafikBBU } from "@/components/landing/GrafikBBU";
+import { GrafikBBU, LegendaGrafik } from "@/components/landing/GrafikBBU";
 import { wajibPeran } from "@/lib/auth";
 import { daftarAnak, detailAnak, type DetailAnak } from "@/lib/data/kader";
 import { kategoriBBTB, kategoriBBU, kategoriTBU, umurHari } from "@/lib/gizi";
@@ -62,6 +62,7 @@ function KartuAnak({ anak, bahan }: { anak: DetailAnak; bahan: { nama: string; p
   const hariIni = hariIniWIB();
   const umur = umurHari(anak.tglLahir, hariIni);
   const t = anak.terakhir;
+  const panggilan = anak.nama.split(" ")[0];
   const indikator: { kode: Indikator; judul: string }[] = [
     { kode: "tbu", judul: "Tinggi badan" },
     { kode: "bbtb", judul: "Berat untuk tingginya" },
@@ -103,11 +104,37 @@ function KartuAnak({ anak, bahan }: { anak: DetailAnak; bahan: { nama: string; p
       {anak.riwayat.length > 0 && (
         <section className="mt-5 rounded-xl border border-garis bg-white px-4 pt-4">
           <h2 className="px-1 text-sm font-bold text-tinta">Grafik berat badan</h2>
-          <p className="px-1 text-xs text-redup">Garis biru tua adalah {anak.nama.split(" ")[0]}; pita biru muda adalah rentang normal standar WHO.</p>
           <div className="max-w-2xl">
             <GrafikBBU jk={anak.jenisKelamin} data={anak.riwayat.map((u) => ({ bulan: u.umurHari / 30.4375, kg: u.beratKg }))}
-              bulanMaks={Math.min(60, Math.max(12, Math.ceil((umur / 30.4375 + 2) / 6) * 6))} />
+              bulanMaks={Math.min(60, Math.max(12, Math.ceil((umur / 30.4375 + 2) / 6) * 6))} waspada={anak.peringatanAktif.length > 0} />
+            <LegendaGrafik nama={panggilan} waspada={anak.peringatanAktif.length > 0} />
           </div>
+          <details className="group border-t border-garis px-1 py-3 text-sm">
+            <summary className="flex cursor-pointer list-none items-center gap-1.5 font-semibold text-langit-tua [&::-webkit-details-marker]:hidden">
+              <svg aria-hidden viewBox="0 0 16 16" className="size-3.5 transition-transform group-open:rotate-90">
+                <path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Cara membaca grafik
+            </summary>
+            <div className="mt-2 max-w-2xl space-y-2 leading-relaxed text-tinta/85">
+              <p>
+                Setiap titik adalah hasil penimbangan {panggilan} di posyandu. Anak yang tumbuh baik punya garis yang terus
+                naik, kurang lebih sejajar dengan garis rata-rata anak sehat.
+              </p>
+              <p>
+                <b>SD</b> (standar deviasi) menunjukkan seberapa jauh berat {panggilan} dari rata-rata anak sehat seusianya
+                menurut WHO. Selama garisnya berada di dalam pita biru, di atas garis −2 SD, beratnya masih normal.
+              </p>
+              <p>
+                Waspadai bila garis <b>mendatar atau turun</b>, atau makin dekat ke garis putus-putus cokelat. Artinya berat
+                anak tidak naik sebagaimana mestinya, walaupun statusnya mungkin masih normal.
+              </p>
+              <p>
+                Bila itu terjadi, kader dan bidan diberi tahu secara otomatis. Anda juga bisa bertanya saat posyandu atau
+                lewat asisten gizi di bawah.
+              </p>
+            </div>
+          </details>
         </section>
       )}
 

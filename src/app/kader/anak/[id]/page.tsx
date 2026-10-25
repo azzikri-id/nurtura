@@ -8,7 +8,7 @@ import { detailAnak } from "@/lib/data/kader";
 import { umurHari } from "@/lib/gizi";
 import { formatAngka, formatTanggal, formatUmur, formatZ, hariIniWIB } from "@/lib/format";
 import { SkalaZ, warnaTeks, type Indikator } from "@/components/SkalaZ";
-import { GrafikBBU } from "@/components/landing/GrafikBBU";
+import { GrafikBBU, LegendaGrafik } from "@/components/landing/GrafikBBU";
 import { FormPengukuran } from "./FormPengukuran";
 
 export const metadata: Metadata = { title: "Detail anak" };
@@ -105,7 +105,10 @@ async function IsiDetail({ params }: Pick<PageProps<"/kader/anak/[id]">, "params
           <section className="rounded-xl border border-garis bg-white px-4 pt-4">
             <h2 className="px-1 text-sm font-bold text-tinta">Berat badan menurut umur (kg)</h2>
             {titikGrafik.length ? (
-              <GrafikBBU jk={anak.jenisKelamin} data={titikGrafik} bulanMaks={bulanMaks} />
+              <>
+                <GrafikBBU jk={anak.jenisKelamin} data={titikGrafik} bulanMaks={bulanMaks} waspada={anak.peringatanAktif.length > 0} />
+                <LegendaGrafik nama={anak.nama.split(" ")[0]} waspada={anak.peringatanAktif.length > 0} />
+              </>
             ) : (
               <p className="px-1 pb-6 pt-2 text-sm text-redup">Grafik muncul setelah pengukuran pertama.</p>
             )}

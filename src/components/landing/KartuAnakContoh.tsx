@@ -1,6 +1,6 @@
 import { hitungStatusGizi } from "@/lib/gizi";
 import { SkalaZ, warnaTeks, type Indikator } from "@/components/SkalaZ";
-import { GrafikBBU } from "./GrafikBBU";
+import { GrafikBBU, LegendaGrafik } from "./GrafikBBU";
 import { CONTOH_BERAT_BULANAN, CONTOH_PENGUKURAN } from "./contoh";
 
 const formatZ = (z: number) => z.toFixed(2).replace(".", ",").replace("-", "−");
@@ -53,7 +53,8 @@ export function KartuAnakContoh() {
 
       <div className="px-4 pt-3">
         <p className="px-1 text-xs font-semibold text-tinta">Berat badan menurut umur (kg)</p>
-        <GrafikBBU jk={CONTOH_PENGUKURAN.jenisKelamin} data={CONTOH_BERAT_BULANAN.map((kg, bulan) => ({ bulan, kg }))} />
+        <GrafikBBU jk={CONTOH_PENGUKURAN.jenisKelamin} data={CONTOH_BERAT_BULANAN.map((kg, bulan) => ({ bulan, kg }))} waspada />
+        <LegendaGrafik nama="Budi" waspada />
       </div>
 
       <figcaption className="m-4 mt-1 rounded-xl bg-waspada-latar px-4 py-3 text-sm">

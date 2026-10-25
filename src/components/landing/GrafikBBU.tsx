@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { garisBBU, type JenisKelamin } from "@/lib/gizi";
 
 type Titik = { bulan: number; kg: number };
@@ -8,7 +9,11 @@ const W = 360, H = 210, KIRI = 30, KANAN = 12, ATAS = 12, BAWAH = 26;
  * Grafik berat badan menurut umur dengan garis referensi WHO asli
  * (median, −2 SD, −3 SD, dan pita −2 s.d. +2 SD).
  */
-export function GrafikBBU({ jk, data, bulanMaks = 18 }: { jk: JenisKelamin; data: Titik[]; bulanMaks?: number }) {
+export function GrafikBBU({ jk, data, bulanMaks = 18, waspada = false }: {
+  jk: JenisKelamin; data: Titik[]; bulanMaks?: number;
+  /** Titik terakhir diberi warna waspada hanya bila anak punya peringatan aktif. */
+  waspada?: boolean;
+}) {
   const ref = (z: number) => garisBBU(jk, z, bulanMaks);
   const plus2 = ref(2), median = ref(0), min2 = ref(-2), min3 = ref(-3);
   const kgMin = Math.floor(Math.min(...min3.map((t) => t.kg)));
@@ -44,8 +49,36 @@ export function GrafikBBU({ jk, data, bulanMaks = 18 }: { jk: JenisKelamin; data
       <path d={garis(data)} fill="none" stroke="var(--color-tinta)" strokeWidth="2" strokeLinejoin="round" />
       {data.map((p) => (
         <circle key={p.bulan} cx={x(p.bulan)} cy={y(p.kg)} r={p === akhir ? 4 : 2.2}
-          fill={p === akhir ? "var(--color-waspada)" : "var(--color-tinta)"} stroke="white" strokeWidth={p === akhir ? 1.5 : 0} />
+          fill={p === akhir && waspada ? "var(--color-waspada)" : "var(--color-tinta)"} stroke="white" strokeWidth={p === akhir ? 1.5 : 0} />
       ))}
     </svg>
+  );
+}
+
+/** Contoh kecil tiap jenis garis agar legenda sama persis dengan yang digambar di grafik. */
+function Contoh({ children }: { children: ReactNode }) {
+  return <svg aria-hidden viewBox="0 0 18 8" className="h-2 w-[18px] shrink-0 overflow-visible">{children}</svg>;
+}
+
+/** Legenda grafik berat badan; selalu tampil di bawah grafik. */
+export function LegendaGrafik({ nama, waspada = false }: { nama: string; waspada?: boolean }) {
+  const butir: { ikon: ReactNode; label: string }[] = [
+    { ikon: <><line x1="0" x2="18" y1="4" y2="4" stroke="var(--color-tinta)" strokeWidth="2" /><circle cx="9" cy="4" r="2.2" fill="var(--color-tinta)" /></>, label: nama },
+    { ikon: <line x1="0" x2="18" y1="4" y2="4" stroke="var(--color-langit)" strokeOpacity="0.45" strokeWidth="1.5" />, label: "Rata-rata anak sehat (median)" },
+    { ikon: <rect x="0" y="0" width="18" height="8" rx="1.5" fill="var(--color-langit)" fillOpacity="0.14" />, label: "Rentang normal (−2 s.d. +2 SD)" },
+    { ikon: <line x1="0" x2="18" y1="4" y2="4" stroke="var(--color-waspada)" strokeDasharray="3 3" strokeWidth="1.5" />, label: "Batas berat kurang (−2 SD)" },
+    { ikon: <line x1="0" x2="18" y1="4" y2="4" stroke="var(--color-bahaya)" strokeDasharray="3 3" strokeWidth="1.5" />, label: "Batas berat sangat kurang (−3 SD)" },
+    { ikon: <circle cx="9" cy="4" r="3.5" fill={waspada ? "var(--color-waspada)" : "var(--color-tinta)"} stroke="white" strokeWidth="1.2" />,
+      label: waspada ? "Penimbangan terakhir (ada peringatan)" : "Penimbangan terakhir" },
+  ];
+  return (
+    <ul className="flex flex-wrap gap-x-4 gap-y-1.5 px-1 pb-3 pt-1 text-xs text-redup">
+      {butir.map(({ ikon, label }) => (
+        <li key={label} className="flex items-center gap-1.5">
+          <Contoh>{ikon}</Contoh>
+          {label}
+        </li>
+      ))}
+    </ul>
   );
 }
