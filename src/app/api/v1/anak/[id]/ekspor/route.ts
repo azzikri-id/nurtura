@@ -22,6 +22,7 @@ export async function GET(_request: Request, { params }: RouteContext<"/api/v1/a
       imunisasi(jenis_vaksin, tgl_diberikan)`)
     .eq("id", id)
     .order("tgl_ukur", { referencedTable: "pengukuran", ascending: true })
+    .order("dibuat_pada", { referencedTable: "pengukuran", ascending: true })
     .maybeSingle();
   if (!a) return Response.json({ error: { code: "NOT_FOUND", message: "Data anak tidak ditemukan" } }, { status: 404 });
 

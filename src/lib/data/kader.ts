@@ -77,6 +77,7 @@ export async function daftarAnak(cari?: string): Promise<AnakRingkas[]> {
     .eq("aktif", true)
     .order("nama")
     .order("tgl_ukur", { referencedTable: "pengukuran", ascending: false })
+    .order("dibuat_pada", { referencedTable: "pengukuran", ascending: false })
     .limit(1, { referencedTable: "pengukuran" });
   if (cari) q = q.ilike("nama", `%${cari.replace(/[%_]/g, "")}%`);
   const { data, error } = await q;
@@ -106,6 +107,7 @@ export async function detailAnak(id: string): Promise<DetailAnak | null> {
       peringatan(id, jenis, tingkat, status, catatan_tindak_lanjut, dibuat_pada)`)
     .eq("id", id)
     .order("tgl_ukur", { referencedTable: "pengukuran", ascending: true })
+    .order("dibuat_pada", { referencedTable: "pengukuran", ascending: true })
     .order("dibuat_pada", { referencedTable: "peringatan", ascending: false })
     .maybeSingle();
   if (!a) return null;

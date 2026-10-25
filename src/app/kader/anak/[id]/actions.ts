@@ -45,6 +45,7 @@ export async function simpanPengukuran(anakId: string, _: StatusSimpan, form: Fo
     .select("id, tgl_lahir, jenis_kelamin, pengukuran(tgl_ukur, umur_hari, berat_kg, tinggi_cm, cara_ukur, status_gizi(z_bbu, z_tbu, z_bbtb))")
     .eq("id", anakId)
     .order("tgl_ukur", { referencedTable: "pengukuran", ascending: true })
+    .order("dibuat_pada", { referencedTable: "pengukuran", ascending: true })
     .maybeSingle();
   if (!anak) return { galat: { umum: "Anak tidak ditemukan atau bukan di posyandu Anda." }, nilai };
 

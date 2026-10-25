@@ -22,6 +22,7 @@ export async function konteksAnak(anakId: string): Promise<KonteksAnak | null> {
     .select("id, nama, tgl_lahir, jenis_kelamin, keluarga(nama_ibu, nama_ayah), pengukuran(tgl_ukur, status_gizi(z_bbu, z_tbu, z_bbtb))")
     .eq("id", anakId)
     .order("tgl_ukur", { referencedTable: "pengukuran", ascending: false })
+    .order("dibuat_pada", { referencedTable: "pengukuran", ascending: false })
     .limit(1, { referencedTable: "pengukuran" })
     .maybeSingle();
   if (!a) return null;
