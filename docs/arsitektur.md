@@ -38,10 +38,12 @@ nurtura/
 │   ├── app/                      # Rute (App Router)
 │   │   ├── page.tsx              # Landing + kalkulator status gizi
 │   │   ├── masuk/                # Login, login demo, logout (Server Actions)
+│   ├── daftar/               # Pendaftaran akun orang tua
+│   ├── akun/                 # Ganti kata sandi sendiri
 │   │   ├── kader/                # Daftar anak, detail + catat pengukuran, daftar anak baru
 │   │   ├── bidan/                # Rekap wilayah, tren 6 bulan, antrean peringatan
 │   │   ├── orang-tua/            # Status gizi, asisten gizi, menu MPASI, data & privasi
-│   │   ├── admin/                # Ringkasan akun dan posyandu
+│   │   ├── admin/                # Kelola posyandu dan akun kader/bidan
 │   │   ├── privasi/              # Kebijakan privasi
 │   │   └── api/v1/               # REST API (lihat docs/api.md)
 │   ├── components/
@@ -68,7 +70,7 @@ nurtura/
 │   └── proxy.ts                  # Penyegaran sesi + proteksi rute per peran
 ├── supabase/
 │   ├── migrations/               # Skema, fungsi, dan kebijakan RLS
-│   └── tests/rls-check.mjs       # 29 uji hak akses di PostgreSQL (PGlite)
+│   └── tests/rls-check.mjs       # 38 uji hak akses di PostgreSQL (PGlite)
 ├── scripts/
 │   ├── seed.ts                   # Data demo (wilayah, akun, 13 anak, 96 pengukuran)
 │   └── data/                     # Basis pengetahuan (25 topik) dan 29 bahan pangan
@@ -94,7 +96,7 @@ Ringkasan aturan Row Level Security:
 | Kader | Anak di posyandu tempat ia bertugas | Anak baru, pengukuran, status gizi, peringatan di posyandunya |
 | Bidan | Anak di semua posyandu wilayah puskesmasnya | Tindak lanjut peringatan |
 | Orang tua | Anak yang sudah ditautkan dengan kode undangan | Percakapan AI dan rekomendasi menu miliknya |
-| Admin | Wilayah, posyandu, dan akun, **tanpa** data kesehatan anak | Pengelolaan wilayah dan akun |
+| Admin | Wilayah, posyandu, dan akun, **tanpa** data kesehatan anak | Posyandu, penugasan kader, dan peran akun |
 
 Fungsi pembantu kebijakan, misalnya `peran_saya()` dan `boleh_baca_anak()`, disimpan di skema `private` agar tidak
 bisa dipanggil lewat API. Peran pengguna baru selalu `orang_tua`. Peran lain hanya bisa diberikan oleh tim.
@@ -130,6 +132,22 @@ Bahan pilihan dan profil anak dikirim ke Claude, yang mengembalikan menu dalam s
 aturan di `menu.ts` lalu menolak menu yang tidak aman. Claude diberi umpan balik untuk memperbaikinya sekali. Menu yang
 tetap melanggar disembunyikan, dan alasannya ditampilkan kepada orang tua.
 
+### Akun dan pengelolaan petugas
+
+- **Orang tua mendaftar sendiri** di `/daftar`. Server membuat akun lewat API admin Supabase, jadi tidak bergantung pada
+  pengiriman email. Peran selalu `orang_tua` karena ditetapkan trigger database, bukan oleh input pengguna. Pendaftaran
+  dibatasi 10 per jam per alamat IP (IP disimpan sebagai hash di `audit_log`). Pesan galat untuk email yang sudah
+  terdaftar sengaja dibuat netral supaya halaman ini tidak bisa dipakai menebak email.
+- **Kader dan bidan dibuat oleh admin** di `/admin`. Admin memilih peran dan tempat bertugas, lalu sistem membuat akun
+  dengan kata sandi sementara yang tampil sekali. Bila penugasan gagal disimpan, akun dibatalkan agar tidak ada akun
+  setengah jadi.
+- **Pengganti "lupa kata sandi":** admin mengatur ulang kata sandi petugas, lalu petugas menggantinya sendiri di
+  `/akun`. Pemulihan lewat email sengaja tidak dipakai karena pengiriman email bawaan paket gratis Supabase sangat
+  dibatasi dan tidak bisa diandalkan.
+- **Akun demo dilindungi:** akun `@example.com` tidak bisa diatur ulang, dinonaktifkan, atau diganti kata sandinya,
+  supaya tetap bisa dipakai bersama oleh pengunjung dan juri.
+- Akun nonaktif tidak bisa masuk. Sesi yang sedang berjalan habis paling lambat dalam 1 jam.
+
 ## Keamanan dan privasi
 
 | Lapisan | Penerapan |
@@ -147,7 +165,7 @@ tetap melanggar disembunyikan, dan alasannya ditampilkan kepada orang tua.
 | Perintah | Isi |
 |---|---|
 | `npm test` | 54 unit test (Vitest): z-score terhadap 616 nilai tabel SD WHO, kategori, peringatan, validator menu, penyamaran privasi, enkripsi |
-| `npm run test:db` | 29 uji migration dan RLS di PostgreSQL (PGlite): tiap peran hanya bisa membaca dan menulis datanya sendiri |
+| `npm run test:db` | 38 uji migration dan RLS di PostgreSQL (PGlite): tiap peran hanya bisa membaca dan menulis datanya sendiri, dan tidak ada yang bisa menaikkan perannya sendiri |
 | `npm run lint` | ESLint (aturan Next.js + React) |
 
 Audit Lighthouse (mode mobile, 24 Okt 2026) untuk 8 halaman utama: aksesibilitas 100, best practices 100, SEO 100, performa 97–100.

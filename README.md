@@ -37,6 +37,7 @@ Data demo bisa dikembalikan ke kondisi awal dengan `npm run seed`.
 - Dasbor bidan/puskesmas: rekap per posyandu, tren 6 bulan, antrean tindak lanjut
 - Asisten gizi berbasis sumber (Buku KIA, pedoman WHO) dengan rujukan dan deteksi tanda bahaya
 - Rekomendasi menu MPASI dari bahan lokal, divalidasi aturan keamanan sebelum tampil
+- Pendaftaran akun orang tua mandiri, ganti kata sandi, dan panel admin (posyandu, akun kader/bidan, atur ulang sandi, nonaktifkan)
 - Hak akses per peran dengan Row Level Security, enkripsi NIK, unduh/hapus data (UU PDP)
 
 ## Teknologi
@@ -78,7 +79,7 @@ Prasyarat: Node.js 20+, akun [Supabase](https://supabase.com) (gratis), dan API 
 ## Pengujian
 ```bash
 npm test          # 54 unit test: z-score terhadap tabel SD resmi WHO, peringatan, validator menu, privasi, enkripsi
-npm run test:db   # 29 uji migration + hak akses per peran (Row Level Security) di PostgreSQL
+npm run test:db   # 38 uji migration + hak akses per peran (Row Level Security) di PostgreSQL
 npm run lint
 ```
 

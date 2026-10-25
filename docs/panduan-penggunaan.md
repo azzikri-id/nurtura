@@ -29,7 +29,19 @@ saja tanpa masuk:
 
 Data kalkulator tidak disimpan.
 
-## 2. Masuk
+## 2. Daftar dan masuk
+
+### Daftar sebagai orang tua
+
+Orang tua bisa membuat akun sendiri lewat **Daftar** di halaman masuk:
+
+1. Isi nama lengkap, email, dan kata sandi (minimal 8 karakter).
+2. Centang persetujuan kebijakan privasi, lalu tekan **Buat akun**. Anda langsung masuk ke beranda orang tua.
+3. Masukkan **kode undangan** dari kader posyandu untuk menautkan anak (lihat bagian Orang tua).
+
+Akun kader dan bidan tidak bisa dibuat sendiri. Akun itu dibuat oleh admin (bagian Admin).
+
+### Masuk
 
 ![Halaman masuk](img/02-masuk.jpg)
 
@@ -194,10 +206,23 @@ Kedua hak ini mengikuti UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi. R
 
 ## 6. Admin
 
-Admin melihat jumlah akun per peran serta daftar posyandu beserta kadernya. Admin **tidak** dapat melihat data
-kesehatan anak. Saat ini, penambahan posyandu dan akun kader/bidan dilakukan oleh tim melalui panel Supabase.
+Admin mengelola posyandu dan akun petugas, dan **tidak** dapat melihat data kesehatan anak.
+
+- **Tambah posyandu:** buka **Tambah posyandu**, isi nama, alamat (opsional), puskesmas pembina, dan desa/kelurahan.
+- **Buat akun kader atau bidan:** buka **Buat akun kader atau bidan**, isi nama dan email, pilih peran dan tempat bertugas
+  (posyandu untuk kader, puskesmas untuk bidan). Kata sandi sementara dibuat otomatis dan **tampil sekali**, jadi catat
+  dan serahkan kepada petugas. Kolom kata sandi boleh diisi sendiri bila ingin menentukan.
+- **Atur ulang sandi:** untuk petugas yang lupa kata sandi. Kata sandi sementara baru tampil sekali di bawah barisnya.
+- **Nonaktifkan atau aktifkan:** akun nonaktif tidak bisa masuk. Sesi yang sedang berjalan habis paling lambat dalam 1 jam.
+- Akun demo (`@example.com`) ditandai dan tidak dapat diubah, supaya tetap bisa dipakai pengunjung.
 
 ## Tampilan di HP
 
 Semua halaman dirancang untuk layar ponsel mulai lebar 360 px, karena kader umumnya bekerja dari HP saat posyandu.
 Tabel yang lebar, seperti rekap bidan, bisa digeser ke samping di dalam kartunya.
+
+## Akun saya (semua peran)
+
+Tautan **Akun saya** di bilah atas menampilkan nama, email, dan peran Anda, serta formulir **Ganti kata sandi**.
+Isi kata sandi saat ini dan kata sandi baru (minimal 8 karakter). Pada akun demo, fitur ini dinonaktifkan karena akun
+dipakai bersama oleh pengunjung.

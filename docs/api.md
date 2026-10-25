@@ -211,7 +211,10 @@ dari halaman aplikasi dan dilindungi pemeriksaan origin bawaan Next.js:
 
 | Aksi | Berkas | Peran |
 |---|---|---|
-| Masuk, masuk demo, keluar | `src/app/masuk/actions.ts` | Semua |
+| Masuk, masuk demo, keluar (batas 5 gagal per 15 menit per email) | `src/app/masuk/actions.ts` | Semua |
+| Daftar akun orang tua (batas 10 per jam per IP) | `src/app/daftar/actions.ts` | Publik |
+| Ganti kata sandi sendiri | `src/app/akun/actions.ts` | Semua yang masuk |
+| Tambah posyandu, buat akun kader/bidan, atur ulang sandi, nonaktifkan akun | `src/app/admin/actions.ts` | Admin |
 | Simpan pengukuran (dengan cek kewajaran) | `src/app/kader/anak/[id]/actions.ts` | Kader |
 | Daftarkan anak (enkripsi NIK, persetujuan) | `src/app/kader/anak/baru/actions.ts` | Kader |
 | Catat tindak lanjut peringatan | `src/app/bidan/actions.ts` | Bidan |
