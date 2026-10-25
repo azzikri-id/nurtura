@@ -125,6 +125,34 @@ await asUser(U.admin, async () => {
   ok("admin TIDAK melihat data kesehatan anak", (await count(`select count(*)::int n from anak`)) === 0);
 });
 
+// Pengelolaan akun dan posyandu hanya untuk admin; pengguna lain tidak bisa menaikkan peran atau penugasannya sendiri.
+const peranDari = async (id) => (await db.query(`select peran from profiles where id = $1`, [id])).rows[0].peran;
+await asUser(U.ortu, async () => {
+  await db.query(`update profiles set peran = 'admin' where id = $1`, [U.ortu]);
+  ok("orang tua TIDAK bisa menambah posyandu", !(await tries(
+    `insert into posyandu (nama, wilayah_id, puskesmas_id) select 'Posyandu Palsu', wilayah_id, id from puskesmas limit 1`)));
+});
+ok("peran orang tua tetap orang_tua setelah percobaan menaikkan peran", (await peranDari(U.ortu)) === "orang_tua");
+await asUser(U.k1, async () => {
+  await db.query(`update profiles set peran = 'admin' where id = $1`, [U.k1]);
+  ok("kader TIDAK bisa menambah posyandu", !(await tries(
+    `insert into posyandu (nama, wilayah_id, puskesmas_id) select 'Posyandu Palsu', wilayah_id, id from puskesmas limit 1`)));
+  ok("kader TIDAK bisa menugaskan dirinya ke posyandu lain", !(await tries(
+    `insert into kader_posyandu (kader_id, posyandu_id) values ($1, $2)`, [U.k1, ids.p2])));
+});
+ok("peran kader tetap kader setelah percobaan menaikkan peran", (await peranDari(U.k1)) === "kader");
+await asUser(U.bidan, async () => {
+  ok("bidan TIDAK bisa mengubah peran akun lain", (await db.query(`update profiles set peran = 'admin' where id = $1 returning id`, [U.k2])).rows.length === 0);
+});
+await asUser(U.admin, async () => {
+  ok("admin menambah posyandu", await tries(
+    `insert into posyandu (nama, wilayah_id, puskesmas_id) select 'Posyandu Baru', wilayah_id, id from puskesmas limit 1`));
+  ok("admin menugaskan kader ke posyandu", await tries(
+    `insert into kader_posyandu (kader_id, posyandu_id) values ($1, $2)`, [U.k2, ids.p1]));
+  ok("admin menetapkan peran akun", (await db.query(`update profiles set peran = 'kader' where id = $1 returning id`, [U.ortu])).rows.length === 1);
+});
+await db.query(`update profiles set peran = 'orang_tua' where id = $1`, [U.ortu]);
+
 // Knowledge-base search (Indonesian full-text search + age filter).
 await db.query(`insert into pengetahuan (topik, umur_min_bulan, umur_max_bulan, isi, sumber, halaman) values
   ('Anak susah makan', 6, 24, 'Tawarkan makanan dengan tekstur sesuai umur dan jadwal makan teratur.', 'Buku KIA', '45'),

@@ -17,11 +17,14 @@ export function BilahAtas({ pengguna, konteks, beranda }: { pengguna: Pengguna; 
             <p className="truncate text-xs text-redup">{pengguna.nama} · {NAMA_PERAN[pengguna.peran]}</p>
           </div>
         </div>
-        <form action={keluar}>
-          <button type="submit" className="text-sm font-semibold text-redup transition-colors hover:text-tinta">
-            Keluar
-          </button>
-        </form>
+        <div className="flex items-center gap-5">
+          <Link href="/akun" className="text-sm font-semibold text-redup transition-colors hover:text-tinta">Akun saya</Link>
+          <form action={keluar}>
+            <button type="submit" className="text-sm font-semibold text-redup transition-colors hover:text-tinta">
+              Keluar
+            </button>
+          </form>
+        </div>
       </div>
     </header>
   );

@@ -30,13 +30,16 @@ export default function HalamanMasuk({ searchParams }: PageProps<"/masuk">) {
         </Link>
         <div className="mx-auto w-full max-w-sm flex-1 content-center py-12">
           <h1 className="text-3xl font-extrabold tracking-tight text-tinta">Masuk ke Nurtura</h1>
-          <p className="mt-2 text-redup">Gunakan akun yang diberikan puskesmas atau kader posyandu Anda.</p>
+          <p className="mt-2 text-redup">Kader dan bidan memakai akun dari puskesmas. Orang tua bisa membuat akun sendiri.</p>
           <div className="mt-8">
             <Suspense fallback={<FormMasuk />}>
               <AlihkanBilaSudahMasuk />
               <FormDenganTujuan searchParams={searchParams} />
             </Suspense>
           </div>
+          <p className="mt-6 text-sm text-redup">
+            Orang tua belum punya akun? <Link href="/daftar" className="font-semibold text-langit-tua underline">Daftar</Link>
+          </p>
         </div>
       </section>
 

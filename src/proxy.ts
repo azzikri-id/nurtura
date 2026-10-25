@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const AREA_TERLINDUNG = ["/kader", "/bidan", "/orang-tua", "/admin"];
+const AREA_TERLINDUNG = ["/kader", "/bidan", "/orang-tua", "/admin", "/akun"];
 
 /**
  * Memperbarui sesi Supabase di setiap request dan mengalihkan pengunjung yang belum masuk
