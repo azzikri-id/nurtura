@@ -25,9 +25,12 @@ export default function HalamanDaftar() {
   return (
     <main className="grid flex-1 lg:grid-cols-2">
       <section className="flex flex-col px-6 py-10 sm:px-12">
-        <Link href="/" aria-label="Kembali ke beranda Nurtura">
-          <Image src="/brand/nurtura-logo-horizontal.svg" alt="Nurtura" width={132} height={33} priority />
-        </Link>
+        <div className="flex items-center justify-between gap-4">
+          <Link href="/" aria-label="Nurtura, ke beranda">
+            <Image src="/brand/nurtura-logo-horizontal.svg" alt="Nurtura" width={132} height={33} priority />
+          </Link>
+          <Link href="/" className="text-sm font-semibold text-langit-tua hover:underline">← Kembali ke beranda</Link>
+        </div>
         <div className="mx-auto w-full max-w-sm flex-1 content-center py-12">
           <h1 className="text-3xl font-extrabold tracking-tight text-tinta">Daftar sebagai orang tua</h1>
           <p className="mt-2 text-redup">Pantau tumbuh kembang anak dari rumah. Akun kader dan bidan dibuat oleh puskesmas.</p>
