@@ -73,7 +73,7 @@ nurtura/
 │   └── tests/rls-check.mjs       # 38 uji hak akses di PostgreSQL (PGlite)
 ├── scripts/
 │   ├── seed.ts                   # Data demo (wilayah, akun, 13 anak, 96 pengukuran)
-│   └── data/                     # Basis pengetahuan (25 topik) dan 29 bahan pangan
+│   └── data/                     # Basis pengetahuan (26 topik) dan 29 bahan pangan
 └── docs/                         # Dokumentasi ini
 ```
 

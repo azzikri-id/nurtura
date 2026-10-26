@@ -6,6 +6,7 @@
 const WHO = "Ringkasan tim dari pedoman WHO tentang makanan pendamping anak 6–23 bulan (2023)";
 const PMBA = "Ringkasan tim dari materi Pemberian Makan Bayi dan Anak (PMBA) Kemenkes";
 const KIA = "Ringkasan tim dari materi Buku KIA Kemenkes";
+const KEAMANAN = "Ringkasan tim dari rekomendasi keamanan pangan bayi (CDC dan American Academy of Pediatrics)";
 
 export type Pengetahuan = { topik: string; umurMin: number; umurMax: number; isi: string; sumber: string };
 
@@ -42,6 +43,8 @@ export const PENGETAHUAN: Pengetahuan[] = [
     isi: "Untuk bayi 6–11 bulan yang tidak mendapat ASI, gunakan susu formula bayi sesuai anjuran tenaga kesehatan. Susu sapi segar atau UHT tawar boleh diberikan mulai umur 12 bulan sebagai bagian dari menu, bukan pengganti makan. Pilih susu tanpa tambahan gula." },
   { topik: "Mencegah tersedak", umurMin: 6, umurMax: 48, sumber: PMBA,
     isi: "Hindari makanan kecil, keras, dan bulat yang mudah tersangkut seperti kacang utuh, anggur utuh, permen, dan popcorn untuk balita. Potong makanan kecil-kecil dan pastikan anak makan dalam posisi duduk serta selalu diawasi." },
+  { topik: "Madu, gula, dan garam untuk bayi dan balita", umurMin: 0, umurMax: 36, sumber: KEAMANAN,
+    isi: "Madu tidak boleh diberikan kepada bayi di bawah 12 bulan, termasuk yang dicampur ke makanan atau minuman, karena dapat mengandung spora bakteri penyebab botulisme bayi. Setelah anak berumur 12 bulan, madu boleh diberikan dalam jumlah kecil. Untuk bayi di bawah 12 bulan, jangan menambahkan garam, gula, kecap, atau penyedap pada MPASI; setelah 12 bulan tetap batasi. Bila bayi tiba-tiba lemas, sembelit, atau sulit menyusu setelah makan madu, segera bawa ke fasilitas kesehatan." },
   { topik: "Kebersihan saat menyiapkan makanan", umurMin: 6, umurMax: 60, sumber: PMBA,
     isi: "Cuci tangan pakai sabun sebelum menyiapkan makanan dan sebelum menyuapi anak. Gunakan peralatan bersih, masak bahan hewani sampai matang, dan simpan makanan matang tidak lebih dari 2 jam di suhu ruang. Gunakan air matang untuk minum." },
   { topik: "Makan saat anak sakit dan setelah sembuh", umurMin: 6, umurMax: 60, sumber: WHO,
