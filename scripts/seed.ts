@@ -28,7 +28,6 @@ const KABUPATEN = "Kabupaten Harapan";
 const AKUN = [
   ...AKUN_DEMO,
   { peran: "kader" as const, email: "kader.melati@example.com", nama: "Dewi Kartika", keterangan: "Posyandu Melati" },
-  { peran: "admin" as const, email: "admin@example.com", nama: "Admin Nurtura", keterangan: "" },
 ];
 
 function cek<T>(hasil: { data: T; error: { message: string } | null }, langkah: string): NonNullable<T> {
