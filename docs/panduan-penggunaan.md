@@ -156,7 +156,10 @@ Akun orang tua baru belum terhubung ke anak mana pun. Masukkan **kode undangan**
 ![Status gizi untuk orang tua](img/08-orangtua-status.jpg)
 
 Setiap indikator ditampilkan dalam bahasa sehari-hari beserta artinya, misalnya "Tinggi badan anak lebih pendek dari
-anak seusianya". Di bawahnya ada grafik pertumbuhan dan riwayat penimbangan.
+anak seusianya". Arahkan kursor (atau ketuk di HP) ke garis warna di bawah setiap status untuk melihat rentang
+nilainya. Di bawahnya ada grafik berat badan yang sengaja dibuat sederhana: garis anak, garis rata-rata anak sehat
+(median), dan garis putus-putus cokelat sebagai batas berat kurang. Tekan **Cara membaca grafik** untuk penjelasan
+singkat. Kader dan bidan melihat grafik yang lebih lengkap, dengan rentang normal dan batas berat sangat kurang.
 
 ### Asisten gizi (AI) — bagian "Tanya soal makan [nama anak]"
 
