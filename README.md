@@ -20,7 +20,7 @@ Buka https://nurtura.sbs/masuk lalu pilih peran, atau masuk manual dengan kata s
 | Kader posyandu | kader.mawar@example.com | Daftar anak, catat penimbangan, cek data tidak wajar, peringatan otomatis |
 | Bidan | bidan@example.com | Rekap per posyandu, antrean peringatan, catatan tindak lanjut |
 | Orang tua | orangtua@example.com | Status gizi anak dengan bahasa awam dan grafik pertumbuhan |
-| Admin | admin@example.com | Tambah posyandu, buat akun kader/bidan, atur ulang kata sandi, nonaktifkan akun |
+| Admin | admin@example.com | Tambah posyandu, buat akun kader/bidan, atur ulang kata sandi, nonaktifkan akun. Tidak ada tombol di halaman masuk: masuk manual dengan kata sandi yang sama. |
 
 Data demo bisa dikembalikan ke kondisi awal dengan `npm run seed`.
 
