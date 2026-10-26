@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
 export type Peran = "admin" | "bidan" | "kader" | "orang_tua";
@@ -31,6 +32,9 @@ export const NAMA_PERAN: Record<Peran, string> = {
  * Dibungkus `cache` agar layout dan halaman dalam satu request hanya memeriksa sekali.
  */
 export const getPengguna = cache(async (): Promise<Pengguna | null> => {
+  // Pemeriksaan sesi memakai Date.now() (masa berlaku token); minta Next.js menunggu permintaan nyata
+  // supaya tidak dihitung sebagai nilai tidak stabil saat prefetch/prarender.
+  await connection();
   const supabase = await createClient();
   const { data: auth } = await supabase.auth.getUser();
   if (!auth.user) return null;
