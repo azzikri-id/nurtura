@@ -81,6 +81,8 @@ export async function daftarAnak(cari?: string): Promise<AnakRingkas[]> {
     .limit(1, { referencedTable: "pengukuran" });
   if (cari) q = q.ilike("nama", `%${cari.replace(/[%_]/g, "")}%`);
   const { data, error } = await q;
+  // Firewall di depan database dapat membalas dengan halaman HTML bila kata kunci menyerupai serangan; anggap tidak ada hasil.
+  if (error && cari && /<!doctype|<html/i.test(error.message)) return [];
   if (error) throw new Error(error.message);
   return (data ?? []).map((a) => ({
     id: a.id, nama: a.nama, tglLahir: a.tgl_lahir, jenisKelamin: a.jenis_kelamin,

@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { Memuat } from "@/components/app/Memuat";
 import { wajibPeran } from "@/lib/auth";
 import { daftarAnak } from "@/lib/data/kader";
+import { bersihkanPencarian } from "@/lib/pencarian";
 import { umurHari } from "@/lib/gizi";
 import { formatTanggal, formatUmur, hariIniWIB } from "@/lib/format";
 import { warnaTeks } from "@/components/SkalaZ";
@@ -21,7 +22,7 @@ export default function BerandaKader({ searchParams }: PageProps<"/kader">) {
 async function DaftarAnakKader({ searchParams }: Pick<PageProps<"/kader">, "searchParams">) {
   await wajibPeran("kader");
   const { q } = await searchParams;
-  const cari = typeof q === "string" ? q.trim() : "";
+  const cari = typeof q === "string" ? bersihkanPencarian(q) : "";
   const anak = await daftarAnak(cari || undefined);
   const hariIni = hariIniWIB();
   const bulanIni = hariIni.slice(0, 7);
