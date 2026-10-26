@@ -94,7 +94,7 @@ function KartuAnak({ anak, bahan }: { anak: DetailAnak; bahan: { nama: string; p
                 <p className="text-xs text-redup">{judul}</p>
                 <p className={`mt-0.5 font-bold ${warnaTeks[kat.tingkat]}`}>{kat.label}</p>
                 <div className="mt-1"><SkalaZ indikator={kode} z={s.z} /></div>
-                <p className="mt-2 text-sm text-redup">{kat.penjelasan}</p>
+                <p className="mt-2 text-sm text-redup">{kat.tingkat === "normal" ? kat.penjelasan.split(". ")[0].replace(/\.$/, "") + "." : kat.penjelasan}</p>
               </div>
             );
           })}
@@ -106,8 +106,8 @@ function KartuAnak({ anak, bahan }: { anak: DetailAnak; bahan: { nama: string; p
           <h2 className="px-1 text-sm font-bold text-tinta">Grafik berat badan</h2>
           <div className="max-w-2xl">
             <GrafikBBU jk={anak.jenisKelamin} data={anak.riwayat.map((u) => ({ bulan: u.umurHari / 30.4375, kg: u.beratKg }))}
-              bulanMaks={Math.min(60, Math.max(12, Math.ceil((umur / 30.4375 + 2) / 6) * 6))} waspada={anak.peringatanAktif.length > 0} />
-            <LegendaGrafik nama={panggilan} waspada={anak.peringatanAktif.length > 0} />
+              bulanMaks={Math.min(60, Math.max(12, Math.ceil((umur / 30.4375 + 2) / 6) * 6))} waspada={anak.peringatanAktif.length > 0} sederhana />
+            <LegendaGrafik nama={panggilan} waspada={anak.peringatanAktif.length > 0} sederhana />
           </div>
           <details className="group border-t border-garis px-1 py-3 text-sm">
             <summary className="flex cursor-pointer list-none items-center gap-1.5 font-semibold text-langit-tua [&::-webkit-details-marker]:hidden">
@@ -118,20 +118,12 @@ function KartuAnak({ anak, bahan }: { anak: DetailAnak; bahan: { nama: string; p
             </summary>
             <div className="mt-2 max-w-2xl space-y-2 leading-relaxed text-tinta/85">
               <p>
-                Setiap titik adalah hasil penimbangan {panggilan} di posyandu. Anak yang tumbuh baik punya garis yang terus
-                naik, kurang lebih sejajar dengan garis rata-rata anak sehat.
+                Setiap titik adalah satu penimbangan {panggilan}. Anak yang tumbuh baik punya garis yang terus naik, kurang lebih
+                sejajar dengan garis biru muda (rata-rata anak sehat).
               </p>
               <p>
-                <b>SD</b> (standar deviasi) menunjukkan seberapa jauh berat {panggilan} dari rata-rata anak sehat seusianya
-                menurut WHO. Selama garisnya berada di dalam pita biru, di atas garis −2 SD, beratnya masih normal.
-              </p>
-              <p>
-                Waspadai bila garis <b>mendatar atau turun</b>, atau makin dekat ke garis putus-putus cokelat. Artinya berat
-                anak tidak naik sebagaimana mestinya, walaupun statusnya mungkin masih normal.
-              </p>
-              <p>
-                Bila itu terjadi, kader dan bidan diberi tahu secara otomatis. Anda juga bisa bertanya saat posyandu atau
-                lewat asisten gizi di bawah.
+                Selama garisnya <b>di atas garis putus-putus cokelat</b> (batas −2 SD), berat {panggilan} masih normal. Waspadai
+                bila garisnya <b>mendatar atau turun</b>. Kader dan bidan akan diberi tahu secara otomatis.
               </p>
             </div>
           </details>
